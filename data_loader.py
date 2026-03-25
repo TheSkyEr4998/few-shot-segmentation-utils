@@ -31,7 +31,7 @@ def load_image_mask(img_path, mask_path):
     mask = Image.open(mask_path).convert("L").resize((IMG_SIZE, IMG_SIZE))
 
     # convert to numpy
-    img = (np.array(img, dtype=np.float32) - 127.5) / 127.5
+    img = np.array(img, dtype=np.float32) / 255.0
     mask = (np.array(mask) > 127).astype(np.float32)
 
     # add channel dimension
