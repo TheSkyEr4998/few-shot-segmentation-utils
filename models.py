@@ -31,7 +31,7 @@ def build_unet():
 
     model.compile(
         optimizer='adam',
-        loss=dice_loss,
+        loss=combined_loss,
         metrics=['accuracy']
     )
 
