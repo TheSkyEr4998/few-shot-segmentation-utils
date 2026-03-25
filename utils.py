@@ -9,9 +9,13 @@ def dice_coefficient(y_true, y_pred):
     )
 
 
-def dice_loss(y_true, y_pred):
+def combined_loss(y_true, y_pred):
+    bce = tf.keras.losses.binary_crossentropy(y_true, y_pred)
+    
     smooth = 1e-6
     intersection = tf.reduce_sum(y_true * y_pred)
-    return 1 - (2. * intersection + smooth) / (
+    dice = (2. * intersection + smooth) / (
         tf.reduce_sum(y_true) + tf.reduce_sum(y_pred) + smooth
     )
+    
+    return bce + (1 - dice)
