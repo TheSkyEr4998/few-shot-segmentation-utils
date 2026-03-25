@@ -1,4 +1,5 @@
 import tensorflow as tf
+from utils import dice_loss   # IMPORTANT
 
 def build_unet():
     inputs = tf.keras.Input((128,128,1))
@@ -13,4 +14,11 @@ def build_unet():
 
     outputs = tf.keras.layers.Conv2D(1,1,activation='sigmoid')(concat)
 
-    return tf.keras.Model(inputs, outputs)
+    model = tf.keras.Model(inputs, outputs)
+
+    model.compile(
+        optimizer='adam',
+        loss=dice_loss
+    )
+
+    return model
